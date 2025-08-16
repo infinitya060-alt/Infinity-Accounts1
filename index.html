@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+  <!--
+    Infinity Accounts — Self‑Hosted Website
+    Tech: HTML + CSS + JavaScript (no frameworks)
+    Theme: Blue + White (all text white)
+    Notes:
+      • Replace placeholder images/links with your own.
+      • Product cards open separate product pages (you can create product-*.html files later).
+      • Floating WhatsApp button shows ONLY the icon (no number text).
+  -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Infinity Accounts — Premium Digital Products</title>
+  <meta name="description" content="Canva Pro, ChatGPT, Zoom, Gemini, Windows Keys, Microsoft 365, CapCut Pro, Figma, Adobe Lightroom, Creative Cloud, Freepik — Fast activation via WhatsApp." />
+  <meta name="author" content="Infinity Accounts" />
+
+  <!-- Social share (Open Graph) -->
+  <meta property="og:title" content="Infinity Accounts — Premium Digital Products" />
+  <meta property="og:description" content="Trusted seller for Canva Pro, ChatGPT, Zoom, Microsoft 365, Adobe, and more." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://your-domain.example/" />
+  <meta property="og:image" content="https://via.placeholder.com/1200x630?text=Infinity+Accounts" />
+
+  <link rel="icon" href="/favicon.ico" />
+
+  <style>
+    /* ===============================
+       THEME VARIABLES
+       =============================== */
+    :root{
+      --blue-1:#0d47a1;           /* primary blue */
+      --blue-2:#1565c0;           /* gradient blue */
+      --white:#ffffff;            /* text color */
+      --glass: rgba(255,255,255,0.08);
+      --border: rgba(255,255,255,0.18);
+      --radius: 18px;
+      --shadow: 0 10px 30px rgba(0,0,0,0.25);
+      --maxw: 1180px;            /* container width */
+    }
+
+    /* Global reset + base */
+    *{box-sizing:border-box}
+    html,body{margin:0; padding:0; background: linear-gradient(135deg,var(--blue-1),var(--blue-2)); color:var(--white); font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji","Segoe UI Emoji";}
+    img{max-width:100%; height:auto; display:block}
+    a{color:var(--white); text-decoration:none}
+
+    .container{max-width:var(--maxw); margin:0 auto; padding:0 20px}
+
+    /* ===============================
+       HEADER (sticky) + NAV
+       =============================== */
+    header{position:sticky; top:0; z-index:50; background: linear-gradient(0deg, rgba(0,0,0,0.0), rgba(0,0,0,0.25)); backdrop-filter:saturate(140%) blur(6px)}
+    .topbar{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 0}
+
+    .brand{display:flex; align-items:center; gap:12px}
+    .logo-box{width:52px; height:52px; border-radius:14px; border:1px solid var(--border); background:var(--glass); display:flex; align-items:center; justify-content:center; overflow:hidden}
+    .brand h1{margin:0; font-size:20px; letter-spacing:.3px}
+
+    nav ul{display:flex; list-style:none; gap:18px; margin:0; padding:0}
+    nav a{opacity:.95}
+    nav a:hover{opacity:1}
+
+    /* Mobile nav */
+    .menu-btn{display:none; border:1px solid var(--border); background:var(--glass); padding:10px 12px; border-radius:12px}
+    @media (max-width: 860px){
+      nav ul{display:none}
+      .menu-btn{display:inline-flex}
+      nav.open ul{display:flex; position:absolute; right:20px; top:64px; flex-direction:column; gap:10px; background:var(--glass); border:1px solid var(--border); padding:12px; border-radius:14px; box-shadow:var(--shadow)}
+    }
+
+    /* ===============================
+       HERO
+       =============================== */
+    .hero{padding:42px 0 22px}
+    .hero .wrap{display:grid; grid-template-columns: 1.2fr .8fr; gap:24px; align-items:center}
+    .hero h2{margin:0 0 8px; font-size:38px}
+    .hero p{margin:0 0 18px; opacity:.92}
+    .cta-row{display:flex; gap:12px; flex-wrap:wrap}
+    .btn{display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:var(--radius); border:1px solid var(--border); background:var(--glass); box-shadow:var(--shadow)}
+    .btn:hover{transform:translateY(-2px)}
+
+    /* ===============================
+       PRODUCTS GRID
+       =============================== */
+    .section{padding:34px 0}
+    .section h3{margin:0 0 12px; font-size:26px}
+    .grid{display:grid; grid-template-columns: repeat(3, 1fr); gap:16px}
+    .card{border:1px solid var(--border); background:var(--glass); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); display:flex; flex-direction:column; min-height:100%}
+    .card .body{padding:14px}
+    .card h4{margin:0 0 6px; font-size:18px}
+    .card p{margin:0; opacity:.92; font-size:14px}
+    .card .actions{padding:14px; display:flex; gap:10px; margin-top:auto}
+    .link-btn{display:inline-block; padding:10px 12px; border-radius:12px; border:1px solid var(--border); background:transparent}
+    .link-btn:hover{background:rgba(255,255,255,0.1)}
+
+    /* ===============================
+       REVIEWS
+       =============================== */
+    .reviews{display:grid; grid-template-columns: 1.1fr .9fr; gap:18px}
+    .fb-embed{border-radius:var(--radius); overflow:hidden; border:1px solid var(--border)}
+    .note{font-size:13px; opacity:.9}
+
+    /* ===============================
+       FOOTER
+       =============================== */
+    footer{padding:26px 0; border-top:1px solid var(--border); background: linear-gradient(0deg, rgba(0,0,0,0.12), rgba(0,0,0,0));}
+    .footgrid{display:grid; grid-template-columns: 1fr 1fr; gap:18px; align-items:center}
+
+    /* ===============================
+       FLOATING WHATSAPP BUTTON — ICON ONLY
+       =============================== */
+    .wa-float{position: fixed; right: 16px; bottom: 16px; z-index: 99}
+    .wa-btn{display:flex; align-items:center; justify-content:center; width:56px; height:56px; border-radius:50%; background:#25D366; color:#000; box-shadow:var(--shadow); border:none}
+    .wa-btn svg{width:26px; height:26px}
+
+    /* ===============================
+       RESPONSIVE TWEAKS
+       =============================== */
+    @media (max-width: 980px){
+      .hero .wrap{grid-template-columns:1fr}
+      .reviews{grid-template-columns:1fr}
+      .grid{grid-template-columns:1fr 1fr}
+      .footgrid{grid-template-columns:1fr}
+    }
+    @media (max-width: 560px){
+      .grid{grid-template-columns:1fr}
+      .hero h2{font-size:30px}
+    }
+  </style>
+</head>
+<body>
+  <!-- ===============================
+       HEADER / NAV
+       =============================== -->
+  <header>
+    <div class="container topbar">
+      <div class="brand">
+        <!-- LOGO PLACEHOLDER — replace src with your logo path -->
+        <div class="logo-box">
+          <img src="image 1/image1.png" alt="Infinity Accounts logo" width="52" height="52" />
+        </div>
+        <h1>Infinity Accounts</h1>
+      </div>
+      <nav id="nav">
+        <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">☰</button>
+        <ul>
+          <li><a href="#products">Products</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===============================
+       HERO
+       =============================== -->
+  <section class="hero">
+    <div class="container wrap">
+      <div>
+        <h2>Premium Accounts &amp; Keys — Fast • Trusted • Affordable</h2>
+        <p>අදම ගන්න Canva Pro, ChatGPT, Microsoft 365, Adobe Creative Cloud සහ තවත් premium services — වේගවත් සේවාව • අඩු මිල • 100% විශ්වාසනීය</p>
+        <div class="cta-row">
+          <a class="btn" href="#products">View Products</a>
+          <a class="btn" id="contact" href="https://api.whatsapp.com/send/?phone=94784397294&text=Hello+Infinity+Accounts+%EF%BF%BD&type=phone_number&app_absent=0" target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+      </div>
+      <div>
+        <!-- Optional hero image -->
+        <img src="image 1/image1.png" />
+      </div>
+    </div>
+  </section>
+
+
+
+  
+<!-- ===============================
+     PRODUCTS
+     =============================== -->
+<section id="products" class="section">
+  <div class="container">
+    <h3>Products</h3>
+    <div class="grid">
+      
+      <!-- Canva Pro -->
+      <article class="card">
+        <img src="image 1/1.png" />
+        <div class="body">
+          <h4>Canva Pro</h4>
+          <p>Premium design tools and templates for teams and freelancers.</p>
+        </div>
+        <div class="actions">
+          <a class="link-btn" href="products/canva-pro.html">Open Product</a>
+          <a class="link-btn" href="https://wa.me/94784397294?text=I%20want%20Canva%20Pro" target="_blank" rel="noopener">Buy via WhatsApp</a>
+        </div>
+      </article>
+
+      <!-- ChatGPT -->
+      <article class="card">
+        <img src="image 1/2.png" alt="ChatGPT" />
+        <div class="body">
+          <h4>ChatGPT</h4>
+          <p>AI assistant access for research, study, and productivity.</p>
+        </div>
+        <div class="actions">
+          <a class="link-btn" href="products/chatgpt.html">Open Product</a>
+          <a class="link-btn" href="https://wa.me/94784397294?text=I%20want%20ChatGPT" target="_blank" rel="noopener">Buy via WhatsApp</a>
+        </div>
+      </article>
+
+      <!-- Zoom -->
+      <article class="card">
+        <img src="image 1/3.png" alt="Zoom" />
+        <div class="body">
+          <h4>Zoom</h4>
+          <p>Video conferencing plans for business and education.</p>
+        </div>
+        <div class="actions">
+          <a class="link-btn" href="products/zoom.html">Open Product</a>
+          <a class="link-btn" href="https://wa.me/94784397294?text=I%20want%20Zoom" target="_blank" rel="noopener">Buy via WhatsApp</a>
+        </div>
+      </article>
+
+      <!-- Gemini -->
+      <article class="card">
+        <img src="image 1/4.png" alt="Google Gemini" />
+        <div class="body">
+          <h4>Gemini (Google)</h4>
+          <p>Advanced AI tools from Google for content &amp; coding.</p>
+        </div>
+        <div class="actions">
+          <a class="link-btn" href="products/gemini.html">Open Product</a>
+          <a class="link-btn" href="https://wa.me/94784397294?text=I%20want%20Gemini" target="_blank" rel="noopener">Buy via WhatsApp</a>
+        </div>
+      </article>
+
+      <!-- Windows Key -->
+      <article class="card">
+        <img src="image 1/5.png" />
+        <div class="body">
+          <h4>Windows Key</h4>
+          <p>Genuine license keys for Windows OS activation.</p>
+        </div>
+        <div class="actions">
+          <a class="link-btn" href="products/windows-key.html">Open Product</a>
+          <a class="link-btn" href="https://wa.me/94784397294?text=I%20want%20Windows%20Key" target="_blank" rel="noopener">Buy via WhatsApp</a>
+        </div>
+      </article>
+
+      <!-- Microsoft 365 -->
+      <article class="card">
+        <img src="image 1/11.png" alt="Microsoft 365" />
+        <div class="body">
+          <h4>Microsoft Office 365</h4>
+          <p>Work &amp; study with full Office apps and cloud storage.</p>
+        </div>
+        <div class="actions">
+          <a class="link-btn" href="products/microsoft-365.html">Open Product</a>
+          <a class="link-btn" href="https://wa.me/94784397294?text=I%20want%20Microsoft%20365" target="_blank" rel="noopener">Buy via WhatsApp</a>
+        </div>
+      </article>
+
+      <!-- CapCut Pro -->
+      <article class="card">
+        <img src="image 1/6.png" alt="CapCut Pro" />
+        <div class="body">
+          <h4>CapCut Pro</h4>
+          <p>Pro video editing features for mobile &amp; desktop.</p>
+        </div>
+        <div class="actions">
+          <a class="link-btn" href="products/capcut-pro.html">Open Product</a>
+          <a class="link-btn" href="https://wa.me/94784397294?text=I%20want%20CapCut%20Pro" target="_blank" rel="noopener">Buy via WhatsApp</a>
+        </div>
+      </article>
+
+      <!-- Figma -->
+      <article class="card">
+        <img src="image 1/7.png" alt="Figma" />
+        <div class="body">
+          <h4>Figma</h4>
+          <p>Collaborative UI/UX design for teams and creators.</p>
+        </div>
+        <div class="actions">
+          <a class="link-btn" href="products/figma.html">Open Product</a>
+          <a class="link-btn" href="https://wa.me/94784397294?text=I%20want%20Figma" target="_blank" rel="noopener">Buy via WhatsApp</a>
+        </div>
+      </article>
+
+      <!-- Lightroom -->
+      <article class="card">
+        <img src="image 1/8.png" alt="Adobe Lightroom" />
+        <div class="body">
+          <h4>Adobe Lightroom</h4>
+          <p>Photo editing &amp; presets for professionals.</p>
+        </div>
+        <div class="actions">
+          <a class="link-btn" href="products/lightroom.html">Open Product</a>
+          <a class="link-btn" href="https://wa.me/94784397294?text=I%20want%20Lightroom" target="_blank" rel="noopener">Buy via WhatsApp</a>
+        </div>
+      </article>
+
+      <!-- Creative Cloud -->
+      <article class="card">
+        <img src="image 1/9.png" alt="Adobe Creative Cloud" />
+        <div class="body">
+          <h4>Adobe Creative Cloud</h4>
+          <p>All Adobe apps — design, video, and more.</p>
+        </div>
+        <div class="actions">
+          <a class="link-btn" href="products/creative-cloud.html">Open Product</a>
+          <a class="link-btn" href="https://wa.me/94784397294?text=I%20want%20Creative%20Cloud" target="_blank" rel="noopener">Buy via WhatsApp</a>
+        </div>
+      </article>
+
+      <!-- Freepik -->
+      <article class="card">
+        <img src="image 1/10.png" alt="Freepik" />
+        <div class="body">
+          <h4>Freepik</h4>
+          <p>Premium stock vectors, photos &amp; templates.</p>
+        </div>
+        <div class="actions">
+          <a class="link-btn" href="products/freepik.html">Open Product</a>
+          <a class="link-btn" href="https://wa.me/94784397294?text=I%20want%20Freepik" target="_blank" rel="noopener">Buy via WhatsApp</a>
+        </div>
+      </article>
+    </div>
+
+
+</section>
+
+<!-- ===============================
+     PRODUCT CARD HOVER CSS
+     =============================== -->
+<style>
+  .card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+
+  .card img {
+    transition: transform 0.3s ease;
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+  }
+
+  .card:hover img {
+    transform: scale(1.08);
+  }
+</style>
+  
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Facebook Style Reviews</title>
+<style>
+/* ===== Reviews Section Styles ===== */
+.reviews-section {
+  background: #0d6efd; /* Blue background */
+  padding: 40px 0;
+  width: 65%;
+  margin: 0 auto; /* Center horizontally */
+  overflow: hidden;
+  border-radius: 15px; /* optional - smooth corners */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.review-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+    background: rgb(50, 51, 70);
+    border-radius: 10px;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.header-left h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.stars {
+    color: gold;
+    font-size: 1.2rem;
+}
+.header button {
+    background-color: #1877f2;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.slider {
+    display: flex;
+    overflow: hidden;
+    position: relative;
+}
+.reviews {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+.review-card {
+    min-width: 300px;
+    max-width: 300px;
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px;
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+    flex-shrink: 0;
+}
+.review-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.review-header img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+.review-name {
+    font-weight: bold;
+    font-size: 1rem;
+}
+.review-date {
+    font-size: 0.8rem;
+    color: gray;
+}
+.review-text {
+    font-size: 0.9rem;
+    margin-top: 8px;
+    color: #000; /* Black text */
+}
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.8);
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 50%;
+}
+.arrow.left { left: 10px; }
+.arrow.right { right: 10px; }
+.dots {
+    text-align: center;
+    margin-top: 10px;
+}
+.dot {
+    height: 10px;
+    width: 10px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 5px;
+    cursor: pointer;
+}
+.dot.active {
+    background-color: #1877f2;
+}
+@media(max-width: 768px){
+    .review-card {
+        min-width: 80%;
+        max-width: 80%;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="reviews-section">
+    <div class="review-container">
+        <div class="header">
+            <div class="header-left">
+                <h2><span style="color:#1877f2;">facebook</span> Reviews</h2>
+                <div class="stars">★ 4.9</div>
+            </div>
+            <button onclick="window.open('https://www.facebook.com/Infinityaccoun/reviews', '_blank')">
+    Review us on Facebook
+</button>
+        </div>
+
+        <div class="slider">
+            <button class="arrow left">&#10094;</button>
+            <div class="reviews" id="reviews">
+                <script>
+                    const reviewData = [
+                        {name:"Ralph Edwards", date:"3 hours ago", text:"Excellent service and support! Highly recommended.", img:"https://i.pravatar.cc/40?img=1"},
+                        {name:"Kristin Watson", date:"1 day ago", text:"The best experience I've had with a company in years.", img:"https://i.pravatar.cc/40?img=2"},
+                        {name:"Michael Brown", date:"2 days ago", text:"Friendly and professional staff, will come back again!", img:"https://i.pravatar.cc/40?img=3"},
+                        {name:"Sarah Lee", date:"4 days ago", text:"Great customer service and fast delivery.", img:"https://i.pravatar.cc/40?img=4"},
+                        {name:"John Smith", date:"1 week ago", text:"Affordable prices and quality service.", img:"https://i.pravatar.cc/40?img=5"},
+                        {name:"Emma Johnson", date:"2 weeks ago", text:"Very satisfied with the service.", img:"https://i.pravatar.cc/40?img=6"},
+                        {name:"David Wilson", date:"3 weeks ago", text:"High quality work at a reasonable price.", img:"https://i.pravatar.cc/40?img=7"},
+                        {name:"Sophia Taylor", date:"1 month ago", text:"Exceptional service, will recommend to friends.", img:"https://i.pravatar.cc/40?img=8"},
+                        {name:"James Anderson", date:"1 month ago", text:"Staff was friendly and helpful.", img:"https://i.pravatar.cc/40?img=9"},
+                        {name:"Isabella Martinez", date:"1 month ago", text:"Quick response and great communication.", img:"https://i.pravatar.cc/40?img=10"},
+                    ];
+                    reviewData.forEach(r=>{
+                        document.write(`
+                            <div class="review-card">
+                                <div class="review-header">
+                                    <img src="${r.img}" alt="${r.name}">
+                                    <div>
+                                        <div class="review-name">${r.name}</div>
+                                        <div class="review-date">${r.date}</div>
+                                    </div>
+                                </div>
+                                <div class="stars">★★★★★</div>
+                                <div class="review-text">${r.text}</div>
+                            </div>
+                        `);
+                    });
+                </script>
+            </div>
+            <button class="arrow right">&#10095;</button>
+        </div>
+        <div class="dots" id="dots"></div>
+    </div>
+</div>
+
+<script>
+    const reviews = document.getElementById('reviews');
+    const dotsContainer = document.getElementById('dots');
+    const totalCards = reviews.children.length;
+    const visibleCards = window.innerWidth < 768 ? 1 : 3;
+    let index = 0;
+
+    const totalSlides = Math.ceil(totalCards / visibleCards);
+    for (let i = 0; i < totalSlides; i++) {
+        const dot = document.createElement('span');
+        dot.classList.add('dot');
+        if (i === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goToSlide(i));
+        dotsContainer.appendChild(dot);
+    }
+
+    function updateDots() {
+        document.querySelectorAll('.dot').forEach((dot, i) => {
+            dot.classList.toggle('active', i === index);
+        });
+    }
+
+    function goToSlide(i) {
+        index = i;
+        const shift = (index * 100) / totalSlides;
+        reviews.style.transform = `translateX(-${shift}%)`;
+        updateDots();
+    }
+
+    document.querySelector('.arrow.left').addEventListener('click', () => {
+        index = (index - 1 + totalSlides) % totalSlides;
+        goToSlide(index);
+    });
+    document.querySelector('.arrow.right').addEventListener('click', () => {
+        index = (index + 1) % totalSlides;
+        goToSlide(index);
+    });
+
+    // ✅ Autoplay only for desktop
+    if (window.innerWidth >= 768) {
+        setInterval(() => {
+            index = (index + 1) % totalSlides;
+            goToSlide(index);
+        }, 4000); // every 4 seconds
+    }
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ===============================
+     FOOTER
+     =============================== -->
+<footer style="background: #0d6efd; padding: 15px 0; color: white;">
+  <div class="container footgrid" style="display: flex; justify-content: space-between; align-items: center;">
+    
+    <div>
+      <strong>Infinity Accounts</strong><br/>
+      All rights reserved © <span id="yr">2025</span>
+    </div>
+
+    <!-- Social Icons -->
+    <div class="social-icons" style="display: flex; gap: 25px; align-items: center;">
+      <a href="https://www.facebook.com/Infinityaccoun" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Facebook_Logo_2023.png/1024px-Facebook_Logo_2023.png" 
+             alt="Facebook" style="width: 28px; height: auto;">
+      </a>
+      <a href="https://pinterest.com/yourid" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Pinterest-logo.png" 
+             alt="Pinterest" style="width: 28px; height: auto;">
+      </a>
+      <a href="https://instagram.com/yourid" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" 
+             alt="Instagram" style="width: 28px; height: auto;">
+      </a>
+      <a href="https://youtube.com/@infinityaccount-pro?si=TyBTceg-K2I_IBHO" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/174/174883.png" 
+             alt="YouTube" style="width: 32px; height: auto;">
+      </a>
+    </div>
+
+  </div>
+</footer>
+
+
+<!-- Floating WhatsApp Icon (ICON ONLY - PNG version) -->
+<a
+  class="wa-float"
+  href="https://wa.me/94784397294?text=Hello%20Infinity%20Accounts%20%F0%9F%91%8B"
+  target="_blank"
+  rel="noopener"
+  aria-label="Chat on WhatsApp"
+>
+  <img src="https://cdn-icons-png.flaticon.com/512/3670/3670051.png" alt="WhatsApp" />
+</a>
+
+<style>
+/* Floating WhatsApp Button — PNG Icon */
+.wa-float{
+  position:fixed;
+  right: 50px;px;             /* screen edge gap */
+  bottom:85px;
+  width:60px; height:60px;
+  background:#25D366;     /* WhatsApp green background */
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 8px 20px rgba(0,0,0,.25);
+  z-index:99999;          /* always on top */
+  text-decoration:none;
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.wa-float:hover{ transform:translateY(-2px); box-shadow:0 12px 24px rgba(0,0,0,.28); }
+.wa-float:active{ transform:translateY(0); }
+
+.wa-float img{
+  width:65px; height:60px;
+}
+
+/* Mobile size tweak */
+@media (max-width: 480px){
+  .wa-float{ width:56px; height:56px; right:14px; bottom:14px; }
+  .wa-float img{ width:28px; height:28px; }
+}
+</style>
+
+
+  <script>
+    // ===============================
+    // SMALL JS: mobile menu, smooth scroll, dynamic year, reveal
+    // ===============================
+
+    // Mobile nav toggle
+    const nav = document.getElementById('nav');
+    const menuBtn = document.getElementById('menuBtn');
+    menuBtn.addEventListener('click', () => {
+      nav.classList.toggle('open');
+    });
+
+    // Smooth scroll for in-page links
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('href');
+        if(id.length > 1){
+          e.preventDefault();
+          document.querySelector(id).scrollIntoView({behavior:'smooth'});
+          nav.classList.remove('open'); // close mobile menu after click
+        }
+      });
+    });
+
+    // Current year in footer
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    // Simple reveal on scroll (optional eye candy)
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){ entry.target.style.transform = 'translateY(0)'; entry.target.style.opacity = '1'; }
+      });
+    }, {threshold: 0.12});
+
+    document.querySelectorAll('.card, .hero .wrap > div, .reviews > div').forEach(el => {
+      el.style.transform = 'translateY(10px)';
+      el.style.opacity = '0';
+      el.style.transition = 'transform .5s ease, opacity .5s ease';
+      io.observe(el);
+    });
+  </script>
+</body>
+</html>
